@@ -1,0 +1,30 @@
+* respect flavour specified (via SysProp?)
+* method parameter, return values, access modifier, ...
+* IntelliJ findet den SourceFolder mit den generierten Files nur manchmal
+
+
+Backlog
+* It seems kapt cannot process repeating annotations like
+
+	@Retention(AnnotationRetention.SOURCE)
+    @Target(AnnotationTarget.CLASS)
+    @Repeatable
+    annotation class Fork(val from: String, val to: String, val ifActive: String)
+
+
+  @Fork(from="delegator1", to="toEsa1", ifActive = "Esa")
+   @Fork(from="delegator1", to="toRoskosmos1", ifActive = "Roskosmos")
+   @Fork(from="delegator2", to="toEsa2", ifActive = "Esa")
+   class Forked() {...}
+   
+   --> the processor skips the class entirely, no matter whether we use
+   roundEnv.getElementsAnnotatedWith(forkClass)
+   or
+   roundEnv.getRootElements()
+
+* Gradle Warning seit Kotlin 1.3(?): 
+  """> Task :processor:kaptTestKotlin
+   Annotation processors discovery from compile classpath is deprecated.
+   Set 'kapt.includeCompileClasspath = false' to disable discovery.
+   Run the build with '--info' for more details.
+  """
