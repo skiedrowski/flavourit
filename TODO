@@ -1,4 +1,3 @@
-* respect flavour specified (via SysProp?)
 * method parameter, return values, access modifier, ...
 * IntelliJ findet den SourceFolder mit den generierten Files nur manchmal
 

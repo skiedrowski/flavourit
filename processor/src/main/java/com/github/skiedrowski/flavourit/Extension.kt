@@ -3,7 +3,7 @@ package com.github.skiedrowski.flavourit
 import javax.annotation.processing.Messager
 
 
-fun Messager.errormessage(message : () -> String){
+fun Messager.errorMessage(message : () -> String){
     this.printMessage(javax.tools.Diagnostic.Kind.ERROR, message())
 }
 
