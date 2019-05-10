@@ -5,6 +5,8 @@ fun main(args: Array<String>) {
     singleFork.delegator1()
     
     val multipleForks = MultipleForks()
+    println("calling delegator1")
     multipleForks.delegator1()
+    println("calling delegator2")
     multipleForks.delegator2()
 }

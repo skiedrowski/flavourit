@@ -47,7 +47,8 @@ class ForkProcessor : AbstractProcessor() {
         val packageOfType = processingEnv.elementUtils.getPackageOf(typeElement).toString()
         val file = File(generatedSourcesRoot)
         file.mkdirs()
-        val fileSpecBuilder = FileSpec.builder(packageOfType, "${typeElement.simpleName}Ext")
+        val extFileName = "${typeElement.simpleName}Ext"
+        val fileSpecBuilder = FileSpec.builder(packageOfType, extFileName)
 
         forkAnnotations.forEach { forkAnnotation ->
             val fromMethodName = forkAnnotation.from
@@ -58,10 +59,14 @@ class ForkProcessor : AbstractProcessor() {
                     .addModifiers(KModifier.PUBLIC)
                     .receiver(ClassName(packageOfType, typeElement.simpleName.toString()))
 
-                funcBuilder.addStatement("%L()", toMethodName)
                 funcBuilder.addStatement(
-                    "println(\"from: %L - to: %L - ifActive: %L\")", fromMethodName, toMethodName, forkAnnFlavour
+                    "println(\"%L: delegating from: %L - to: %L - because of flavour: %L\")",
+                    extFileName,
+                    fromMethodName,
+                    toMethodName,
+                    forkAnnFlavour
                 )
+                funcBuilder.addStatement("%L()", toMethodName)
                 fileSpecBuilder.addFunction(funcBuilder.build())
             }
         }

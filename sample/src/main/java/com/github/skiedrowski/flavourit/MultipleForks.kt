@@ -10,15 +10,15 @@ package com.github.skiedrowski.flavourit
 class MultipleForks() {
 
     internal fun toRoskosmos1() {
-
+        println("Running Roskosmos 1")
     }
 
     internal fun toEsa1() {
-
+        println("Running Esa 1")
     }
 
     internal fun toEsa2() {
-
+        println("Running Esa 2")
     }
 
 }
